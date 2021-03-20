@@ -13,7 +13,7 @@ const logger = createLogger({
         timestamp(),
         logFormat
     ),
-    transports: [new transports.File({ filename: __dirname + '/app.log' })]
+    transports: [new transports.File({ filename: __dirname + '/logs/app.log' })]
 });
 
 if(process.env.NODE_ENV !== 'production') {
@@ -21,3 +21,5 @@ if(process.env.NODE_ENV !== 'production') {
         format: format.simple(),
     }));
 }
+
+module.exports = logger;
