@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <%- include('head') %>
+</head>
+
+<body>
+    <div class="container">
+        <%- include('navbar', { keyword: null, active: 'signup', loggedin:loggedin }) %>
+
+            <div class="m-5 d-flex flex-column justify-content-center">
+                <div class="fs-1 my-4 me-auto ms-auto">Create Your Account</div>
+                <!-- error message -->
+                <% if(error) { %> 
+                    <div class="alert alert-danger me-auto ms-auto" role="alert">
+                        <%= error %> 
+                    </div>
+                <% } %> 
+                <!-- sign up form -->
+                <div class="my-4 w-25 me-auto ms-auto">
+                    <form action="/auth/signup" method="POST">
+                        <div class="mb-3">
+                            <label for="usernameInput" class="form-label">Username</label>
+                            <input type="text" class="form-control" name="uname" id="uname" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="usernameInput" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" name="email" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="passwordInput" class="form-label">Password</label>
+                            <input type="password" class="form-control" name="pass" id="pass" required>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" name="terms" id="terms">
+                            <label for="terms" class="form-check-label fw-lighter">Agree to Terms and Conditions?</label>
+                        </div>
+                        <button type="submit" class="btn btn-outline-success">Create Account</button>
+                    </form>
+                </div>
+            </div>
+
+
+            <div class="container position-absolute bottom-0">
+                <%- include('footer') %>
+            </div>
+    </div>
+
+    <!-- scripts -->
+    <%- include('scripts', {loggedin:loggedin}) %>
+</body>
+
+</html>

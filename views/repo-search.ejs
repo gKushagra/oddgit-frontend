@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <%- include('head') %>
+</head>
+
+<body>
+    <div class="container">
+        <%- include('navbar', { keyword: keyword, active: null, loggedin: loggedin }) %>
+
+            <!-- List of repositories -->
+            <div class="list-group my-5 w-75 me-auto ms-auto">
+                <% for(let i=0; i<data.length; i++) {%>
+                    <div class="list-group-item my-2 border rounded shadow-none">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">
+                                <%= data[i].name %>
+                            </h5>
+                            <small class="ms-4 me-auto"><i class="bi bi-star"></i>
+                                <%= data[i].stars %>
+                            </small>
+                            <small>Updated on <%= data[i].date %> </small>
+                        </div>
+                        <p class="mb-1">
+                            <%= data[i].description %>
+                        </p>
+                        <small>
+                            <span>
+                                <button class="btn btn-light">
+                                    <i class="bi bi-folder2-open"></i>
+                                    View Repository
+                                </button>
+
+                            </span>
+                            <span>
+                                <button class="btn btn-light">
+                                    <i class="bi bi-clipboard"></i>
+                                    Clone Repository
+                                </button>
+                            </span>
+                            <span>
+                                <button class="btn btn-light">
+                                    <i class="bi bi-file-zip"></i>
+                                    Download Code (.zip)
+                                </button>
+                            </span>
+                        </small>
+                    </div>
+                    <% } %>
+            </div>
+
+            <!-- pagination -->
+            <%- include('pagination', { keyword: keyword, page: page, dataSize: dataSize }) %>
+
+            <!-- footer -->
+            <%- include('footer') %>
+    </div>
+
+    <!-- scripts -->
+    <%- include('scripts',{ loggedin:loggedin }) %>
+</body>
+
+</html>

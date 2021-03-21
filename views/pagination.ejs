@@ -1,0 +1,19 @@
+<div class="d-flex w-75 me-auto ms-auto">
+    <nav class="ms-auto">
+        <ul class="pagination">
+            <% if(parseInt(page) > 0) {%>
+                <li class="page-item">
+                    <a class="page-link"
+                        href="http://localhost:3112/repos/search?value=<%= keyword %>&page=<%= parseInt(page) - 1 %>">Previous</a>
+                </li>
+            <% } %>
+
+            <% if(parseInt(page) < Math.floor(parseInt(dataSize)/10)) {%>
+                <li class="page-item">
+                    <a class="page-link"
+                        href="http://localhost:3112/repos/search?value=<%= keyword %>&page=<%= parseInt(page) + 1  %>">Next</a>
+                </li>
+            <% } %>
+        </ul>
+    </nav>
+</div>

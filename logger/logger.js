@@ -16,10 +16,10 @@ const logger = createLogger({
     transports: [new transports.File({ filename: __dirname + '/logs/app.log' })]
 });
 
-if(process.env.NODE_ENV !== 'production') {
-    logger.add(new transports.Console({
-        format: format.simple(),
-    }));
-}
+// if(process.env.NODE_ENV !== 'production') {
+//     logger.add(new transports.Console({
+//         format: format.simple(),
+//     }));
+// }
 
 module.exports = logger;

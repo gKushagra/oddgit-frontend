@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <%- include('head') %>
+</head>
+
+<body>
+    <div class="container">
+        <%- include('navbar', { keyword: null, active: 'login', loggedin:loggedin }) %>
+
+            <div class="m-5 d-flex flex-column justify-content-center">
+                <div class="fs-1 my-4 me-auto ms-auto me-auto ms-auto">Welcome Back!</div>
+                <!-- error message -->
+                <% if(error) { %> 
+                    <div class="alert alert-danger" role="alert">
+                        <%= error %> 
+                    </div>
+                <% } %> 
+                <!-- login form -->
+                <div class="my-4 w-25 me-auto ms-auto">
+                    <form action="/auth/login" method="POST">
+                        <div class="mb-3">
+                            <label for="usernameInput" class="form-label">Username</label>
+                            <input type="text" class="form-control" name="uname" id="uname" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="passwordInput" class="form-label">Password</label>
+                            <input type="password" class="form-control" name="pass" id="pass" required>
+                        </div>
+                        <button type="submit" class="btn btn-outline-success">Login</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="container position-absolute bottom-0">
+                <%- include('footer') %>
+            </div>
+    </div>
+
+    <!-- scripts -->
+    <%- include('scripts',{loggedin:loggedin}) %>
+</body>
+
+</html>

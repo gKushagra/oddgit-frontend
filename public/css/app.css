@@ -1,0 +1,10 @@
+.brand-logo {
+  object-fit: contain;
+  width: 24px;
+  height: 24px;
+}
+
+.repo-list-wrapper {
+  height: 81vh !important;
+  overflow: auto;
+}

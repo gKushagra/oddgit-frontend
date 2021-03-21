@@ -1,0 +1,25 @@
+<!-- <pre> -->
+                <% codeHtml.forEach(function(line){ %>
+                    <code><%=line%></code><br>
+                <% }); %>
+            <!-- </pre> -->
+
+const path = require('path');
+const fs = require('fs');
+const filePath = path.join(__dirname + '/index-out.js');
+var codeHtml = [];
+try {
+    // read contents of the file
+    const data = fs.readFileSync(filePath, 'UTF-8');
+
+    // split the contents by new line
+    const lines = data.split(/\r?\n/);
+
+    // print all lines
+    lines.forEach((line) => {
+        if(line[0] === '+' && line[1] !== '+')
+        codeHtml.push(line);
+    });
+} catch (err) {
+    console.error(err);
+}
