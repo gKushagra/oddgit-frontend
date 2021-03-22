@@ -4,6 +4,7 @@ const logger = require('../logger/logger');
 const db = require('../helpers/db');
 const bcrypt = require('bcrypt');
 const jwt = require('../helpers/jwt');
+const mailer = require('../helpers/nodemailer');
 
 const router = express.Router();
 
@@ -47,7 +48,7 @@ router.post('/login', async (req, res) => {
                         if (result) {
                             // build token
                             let token = jwt.generateJWT(data.uname);
-                            res.status(200).render('home', { loggedin: true, token: token });
+                            res.render('home', { loggedin: true, token: token });
                         }
                         else res.status(200).render('login', {
                             error: "Username or Password Incorrect",
@@ -58,7 +59,7 @@ router.post('/login', async (req, res) => {
                     res.sendStatus(500);
                 }
             } else {
-                res.status(200).render('login', {
+                res.render('login', {
                     error: "Username or Password Incorrect",
                     loggedin: false
                 });
@@ -109,14 +110,74 @@ router.post('/signup', async (req, res) => {
     }
 });
 
+// request reset link view
+router.get('/request-link', (req, res) => {
+    res.render('reset-req', { loggedin: false });
+});
+
+// request reset pass view
+router.get('/reset-password/:token', (req, res) => {
+    res.render('reset', { loggedin: false, token: req.params.token });
+});
+
 // reset request
 router.get('/reset/:email', async (req, res) => {
-
+    let token = jwt.generateJWT(req.params.email);
+    let conn = db.connectDB();
+    try {
+        let query1 = `SELECT 1 FROM users WHERE email="${req.params.email}";`;
+        db.getQuery(conn, query1, async function (result) {
+            if (result !== undefined && result['1']) {
+                try {
+                    let query2 = `UPDATE users SET dateResetToken="${new Date()}",resetToken="${token}" WHERE email="${req.params.email}";`
+                    db.runQueryTable(conn, query2, async function () {
+                        db.disconnectDB(conn);
+                        logger.log({ level: "info", message: 'user found. sending link' });
+                        await mailer.sendMail(req.params.email, token, 1);
+                    });
+                } catch (error) {
+                    logger.log({ level: "error", message: `query error ${error}` });
+                    res.sendStatus(500);
+                }
+            }
+            res.status(200).json({ message: "A reset link will be sent if an account is found associated with this email." });
+        });
+    } catch (error) {
+        logger.log({ level: "error", message: `query error ${error}` });
+        res.sendStatus(500);
+    }
 });
 
 // reset 
 router.post('/reset', async (req, res) => {
-
+    const data = req.body;
+    let hash = await bcrypt.hash(data.pass, 10);
+    let decodedToken = jwt.decodeJWT(data.token);
+    let conn = db.connectDB();
+    try {
+        let query1 = `SELECT 1 FROM users WHERE resetToken="${data.token}" OR email="${decodedToken.user}";`;
+        db.getQuery(conn, query1, async function (result) {
+            if (result !== undefined && result['1']) {
+                try {
+                    let query2 = `UPDATE users SET password="${hash}",dateLastUpdated="${new Date()}" WHERE email="${decodedToken.user}";`
+                    db.runQueryTable(conn, query2, async function () {
+                        db.disconnectDB(conn);
+                        logger.log({ level: "info", message: 'password updatedd' });
+                        await mailer.sendMail(decodedToken.user, null, 0);
+                        res.status(200).json({ message: "Password updated successfully" });
+                    })
+                } catch (error) {
+                    logger.log({ level: "error", message: `query error ${error}` });
+                    res.sendStatus(500);
+                }
+            } else {
+                res.status(400).json({ message: "Invalid Request" });
+            }
+        });
+    } catch (error) {
+        logger.log({ level: "error", message: `query error ${error}` });
+        res.sendStatus(500);
+    }
 });
 
 // logout
@@ -126,10 +187,9 @@ router.get('/logout', (req, res) => {
 });
 
 // verify token
-router.get('/verify-token', (req, res) => {
+router.get('/verify-token/:token', (req, res) => {
     logger.log({ level: 'info', message: 'validating existing token' });
-    const token = req.headers.authorization.split(" ")[1];
-    const decodedToken = jwt.decodeJWT(token);
+    const decodedToken = jwt.decodeJWT(req.params.token);
     // console.log(decodedToken);
     // check is user is in our database
     let conn = db.connectDB();
@@ -140,9 +200,9 @@ router.get('/verify-token', (req, res) => {
             if (result !== undefined && result['1']) {
                 // generate new token
                 let newToken = jwt.generateJWT(decodedToken.user);
-                res.status(308).render('home', { loggedin: true, token: newToken });
+                res.render('home', { loggedin: true, token: newToken });
             } else {
-                res.status(308).render('home', { loggedin: false, token: null });
+                res.render('home', { loggedin: false, token: null });
             }
         });
     } catch (error) {

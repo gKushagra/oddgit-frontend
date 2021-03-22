@@ -39,6 +39,19 @@ function runQueryTable(conn, query, callback) {
     });
 }
 
+function getMultipleRows(conn, query, callback) {
+    conn.all(query, [], function (err, rows) {
+        if (err)
+            logger.log({ level: 'error', message: 'query error' });
+
+        let data = [];
+        for (let i = 0; i < rows.length; i++) {
+            data.push(rows[i]);
+        }
+        return callback(data);
+    });
+}
+
 // useful only if tables do not exist, create them
 function ifNotExistCreateTables(conn) {
     conn.run(`CREATE TABLE IF NOT EXISTS users(
@@ -54,13 +67,13 @@ function ifNotExistCreateTables(conn) {
     );`);
 
     conn.run(`CREATE TABLE IF NOT EXISTS repositories(
-        name INTEGER PRIMARY KEY,
-        description TEXT, 
-        dateCreated INTEGER NOT NULL,
-        dateLastUpdated INTEGER,
-        dateResetToken INTEGER,
+        name TEXT PRIMARY KEY,
+        description	TEXT,
+        dateCreated	INTEGER NOT NULL,
+        dateLastUpdated	INTEGER,
         stars TEXT,
-        collaborators TEXT
+        collaborators TEXT,
+        user TEXT NOT NULL
     );`)
 }
 
@@ -69,5 +82,6 @@ module.exports = {
     disconnectDB,
     getQuery,
     runQueryTable,
+    getMultipleRows,
     ifNotExistCreateTables,
 }

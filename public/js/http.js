@@ -1,5 +1,6 @@
 // Example HTTP methods implementation:
 async function GET(url = '', token) {
+    console.log(url);
     // Default options are marked with *
     const response = await fetch(url, {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -17,14 +18,15 @@ async function GET(url = '', token) {
     return response.status === 308 ? response.text() : response.json(); // parses JSON response into native JavaScript objects
 }
 
-async function POST(url = '', data = {}) {
+async function POST(url = '', data = {}, token) {
     // Default options are marked with *
     const response = await fetch(url, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
+        mode: 'same-origin', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         credentials: 'same-origin', // include, *same-origin, omit
         headers: {
+            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
             // 'Content-Type': 'application/x-www-form-urlencoded',
         },

@@ -10,10 +10,10 @@
         <%- include('navbar', { keyword: null, active: 'login', loggedin:loggedin }) %>
 
             <div class="m-5 d-flex flex-column justify-content-center">
-                <div class="fs-1 my-4 me-auto ms-auto me-auto ms-auto">Welcome Back!</div>
+                <div class="fs-1 my-4 me-auto ms-auto">Welcome Back!</div>
                 <!-- error message -->
                 <% if(error) { %> 
-                    <div class="alert alert-danger" role="alert">
+                    <div class="alert alert-danger w-25 me-auto ms-auto" role="alert">
                         <%= error %> 
                     </div>
                 <% } %> 
@@ -30,6 +30,9 @@
                         </div>
                         <button type="submit" class="btn btn-outline-success">Login</button>
                     </form>
+                </div>
+                <div class="my-2 w-25 ms-auto me-auto">
+                    <a class="fw-light btn btn-light" href="http://localhost:3112/auth/request-link" role="button">Forgot Password?</a>
                 </div>
             </div>
 

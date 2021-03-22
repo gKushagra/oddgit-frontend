@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <%- include('head') %>
+</head>
+
+<body>
+    <div class="container">
+        <%- include('navbar', { keyword: null, active: 'no-results' , loggedin: loggedin, token: token }) %>
+
+        <!-- add new repository -->
+        <%- include('add-repo', { token: token }) %>     
+
+        <!-- No repositories -->
+        <div class="d-flex my-4">
+            <div class="fw-bold fs-4 me-auto ms-auto">No Repositories Found!</div>
+        </div>
+
+        <!-- footer -->
+        <%- include('footer') %>
+    </div>
+
+    <!-- scripts -->
+    <%- include('scripts',{ loggedin:loggedin }) %>
+        <div id="active-page" data-test=<%="repositories" %>></div>
+</body>
+
+</html>

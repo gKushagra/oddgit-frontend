@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <%- include('head') %>
+</head>
+
+<body>
+    <div class="container">
+        <div class="m-5 d-flex flex-column justify-content-center">
+            <div class="fs-1 my-4 me-auto ms-auto me-auto ms-auto">Reset Password</div>
+            <!-- messages -->
+            <div id="error" class="alert alert-danger w-25 me-auto ms-auto" role="alert"></div>
+            <div id="success" class="alert alert-success w-25 me-auto ms-auto" role="alert"></div>
+            <div id="token" data-test=<%= token %>></div>
+            <!-- reset pass form -->
+            <div class="my-4 w-25 me-auto ms-auto">
+                <form>
+                    <div class="mb-3">
+                        <label for="pass" class="form-label">Password</label>
+                        <input type="password" class="form-control" name="pass" id="pass" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="pass2" class="form-label">Reset Password</label>
+                        <input type="password" class="form-control" name="pass2" id="pass2" required>
+                    </div>
+                    <button id="save-new-pass" type="button" class="btn btn-outline-success">Save</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="container position-absolute bottom-0">
+            <%- include('footer') %>
+        </div>
+    </div>
+
+    <!-- scripts -->
+    <%- include('scripts', { loggedin: loggedin }) %>
+    <script>
+        var token = document.getElementById('token').dataset.test;
+        console.log(token);
+    </script>
+    <script src="/js/reset.js"></script>
+</body>
+
+</html>

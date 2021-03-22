@@ -1,0 +1,35 @@
+<div class="d-flex my-5">
+    <button id="add-repository" class="btn btn-outline-primary ms-auto">
+        <i class="bi bi-folder-plus"></i> New Repository
+    </button>
+    <!-- add repository dialog -->
+    <div class="modal fade" id="add-repo-modal" tabindex="-1" aria-labelledby="add-repo-modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add New Repository</h5>
+                    <button id="close-modal" type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="msg" class="alert alert-success alert-danger visually-hidden" role="alert">
+                        A simple success alert—check it out!
+                    </div>
+                    <form>
+                        <div class="mb-3">
+                            <label for="repository-name" class="col-form-label">Repository Name</label>
+                            <input type="text" class="form-control" name="repository-name" id="repository-name">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div id="check-name" style="width: 1.5rem; height: 1.5rem;"
+                        class="spinner-border text-primary visually-hidden" role="status"></div>
+                    <button id="create-repo" type="button" class="btn btn-primary">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="token" data-test=<%=token %> ></div>

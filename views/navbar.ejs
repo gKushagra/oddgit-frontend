@@ -14,7 +14,9 @@
             <!-- repositories owned by user shows when logged in -->
             <% if(loggedin) {%>  
             <li class="nav-item">
-                <a class="nav-link <%= active === 'home' ? 'active':null %> " aria-current="page" href="http://localhost:3112/home/">Repositories</a>
+                <a class="nav-link <%= active === 'repositories' ? 'active':null %>" href="http://localhost:3112/repos/repositories?page=0&token=<%= token %>" aria-current="page">
+                    Repositories
+                </a>
             </li>
             <% } %> 
         </ul>
