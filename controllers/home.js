@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/', (req, res) => {
     const ip = requestIP.getClientIp(req);
     logger.log({ level: 'info', message: `home accessed by ${ip}` });
-    res.render('home', { loggedin: false });
+    res.render('home', { loggedin: false, token: null });
 });
 
 router.post('/search', (req, res) => {

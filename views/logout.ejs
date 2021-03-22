@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <%- include('head') %>
+</head>
+
+<body>
+    <div class="container">
+        <div id="logout" data-test=<%= logout %>></div>
+        <div class="fw-light">Logging Out! Please wait...</div>
+    </div>
+
+    <!-- scripts -->
+    <%- include('scripts', { loggedin: loggedin }) %>
+
+    <script>
+        var isLogout = document.getElementById('logout').dataset.test;
+        console.log(isLogout);
+        if(isLogout) logout();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+<% if(loggedin) {%> 
+    <div id="token" data-test=<%= token %>></div>
+    <script>
+        saveToken(document.getElementById('token').dataset.test);
+    </script>
+<% } %> 
+
+<% if(!loggedin) { %> 
+    <script>
+        checkToken();
+    </script>
+<% } %> 

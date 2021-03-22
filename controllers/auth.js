@@ -3,6 +3,7 @@ const requestIP = require('request-ip');
 const logger = require('../logger/logger');
 const db = require('../helpers/db');
 const bcrypt = require('bcrypt');
+const jwt = require('../helpers/jwt');
 
 const router = express.Router();
 
@@ -21,13 +22,13 @@ router.get('/signup', (req, res) => {
 });
 
 // login
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
     const data = req.body; // can also use just JSON.parse(JSON.stringify(req.body))
-    
+
     logger.log({ level: 'info', message: `login ${data.uname}` });
-    
+
     console.log(data);
-    
+
     let conn = db.connectDB();
 
     try {
@@ -43,7 +44,11 @@ router.post('/login', (req, res) => {
                             throw new Error("Server Error");
                         }
 
-                        if (result) res.status(200).render('home', { loggedin: true });
+                        if (result) {
+                            // build token
+                            let token = jwt.generateJWT(data.uname);
+                            res.status(200).render('home', { loggedin: true, token: token });
+                        }
                         else res.status(200).render('login', {
                             error: "Username or Password Incorrect",
                             loggedin: false
@@ -100,6 +105,48 @@ router.post('/signup', async (req, res) => {
         });
     } catch (error) {
         db.disconnectDB(conn);
+        res.sendStatus(500);
+    }
+});
+
+// reset request
+router.get('/reset/:email', async (req, res) => {
+
+});
+
+// reset 
+router.post('/reset', async (req, res) => {
+
+});
+
+// logout
+router.get('/logout', (req, res) => {
+    logger.log({ level: 'info', message: 'logout accessed' });
+    res.render('logout', { loggedin: true, logout: true });
+});
+
+// verify token
+router.get('/verify-token', (req, res) => {
+    logger.log({ level: 'info', message: 'validating existing token' });
+    const token = req.headers.authorization.split(" ")[1];
+    const decodedToken = jwt.decodeJWT(token);
+    // console.log(decodedToken);
+    // check is user is in our database
+    let conn = db.connectDB();
+    try {
+        let query = `SELECT 1 FROM users WHERE username="${decodedToken.user}" OR email="${decodedToken.user}";`;
+        db.getQuery(conn, query, function (result) {
+            db.disconnectDB(conn);
+            if (result !== undefined && result['1']) {
+                // generate new token
+                let newToken = jwt.generateJWT(decodedToken.user);
+                res.status(308).render('home', { loggedin: true, token: newToken });
+            } else {
+                res.status(308).render('home', { loggedin: false, token: null });
+            }
+        });
+    } catch (error) {
+        logger.log({ level: 'error', message: 'query error' });
         res.sendStatus(500);
     }
 });

@@ -36,10 +36,10 @@
             <% } %>
             <% if(loggedin) {%>
             <li class="nav-item">
-                <a class="nav-link <%= active === 'signup' ? 'active':null %>" aria-current="page" href="http://localhost:3112/auth/signup">Profile</a>
+                <a class="nav-link <%= active === 'profile' ? 'active':null %>" aria-current="page" href="#">Profile</a>
             </li> 
             <li class="nav-item ms-2">
-                <a class="btn btn-light <%= active === 'login' ? 'active':null %>" aria-current="page" href="http://localhost:3112/auth/login">
+                <a class="btn btn-light <%= active === 'logout' ? 'active':null %>" aria-current="page" href="http://localhost:3112/auth/logout">
                     <i class="bi bi-box-arrow-right"></i>
                 </a>
             </li>

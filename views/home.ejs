@@ -7,13 +7,14 @@
 
 <body>
     <div class="container">
-        <%- include('navbar', { keyword: null, active: 'home', loggedin: loggedin }) %>
+        <%- include('navbar', { keyword: null, active: 'home' , loggedin: loggedin }) %>
 
         <%- include('footer') %>
     </div>
 
     <!-- scripts -->
     <%- include('scripts', { loggedin: loggedin }) %>
+    <%- include('user-auth', { loggedin: loggedin, token: token }) %>
 </body>
 
 </html>
