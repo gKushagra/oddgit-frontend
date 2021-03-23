@@ -5,6 +5,7 @@
 "use strict";
 require('dotenv').config();
 const nodemailer = require("nodemailer");
+const DOMAIN = 'http://localhost:3112';
 
 // async..await is not allowed in global scope, must use a wrapper
 async function sendMail(to, token, template) {
@@ -24,7 +25,7 @@ async function sendMail(to, token, template) {
         from: '"Odd Git " <oddgit@deltasaas.tech>', // sender address
         to: to, // list of receivers
         subject: "Password Reset Request", // Subject line
-        text: template === 1 ? `Link http://localhost:3112/auth/reset-password/${token}` : `Password Reset Successfully`, // plain text body
+        text: template === 1 ? `Link ${DOMAIN}/auth/reset-password/${token}` : `Password Reset Successfully`, // plain text body
         html: template === 1 ? `
         <!DOCTYPE html>
         <html lang="en">
@@ -37,7 +38,7 @@ async function sendMail(to, token, template) {
         <body>
             <h1>Hello User,</h1>
             <p>Recently, you requested to reset your password. Please click the below link to proceed.</p>
-            <a href="http://localhost:3112/auth/reset-password/${token}">Reset Link</a>
+            <a href="${DOMAIN}/auth/reset-password/${token}">Reset Link</a>
             <br>
             <br>
             <p>Best,</p>

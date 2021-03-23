@@ -1,3 +1,5 @@
+const DOMAIN = 'http://localhost:3112';
+
 // Example HTTP methods implementation:
 async function GET(url = '', token) {
     console.log(url);

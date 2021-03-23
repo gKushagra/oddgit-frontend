@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand me-4 ms-2" href="http://localhost:3112/home/">
+        <!-- <a class="navbar-brand me-4 ms-2" href="https://oddgit.fullstackengineers.co.in/home/"> -->
             <div class="align-middle my-1">
                 Odd <img class="brand-logo" src="/icons/Git-Icon-1788C.png" alt="odd-git-logo">
             </div>
@@ -9,12 +10,14 @@
             <% if(!loggedin) {%> 
             <li class="nav-item">
                 <a class="nav-link <%= active === 'home' ? 'active':null %> " aria-current="page" href="http://localhost:3112/home/">Home</a>
+                <!-- <a class="nav-link <%= active === 'home' ? 'active':null %> " aria-current="page" href="https://oddgit.fullstackengineers.co.in/home/">Home</a> -->
             </li>
             <% } %>
             <!-- repositories owned by user shows when logged in -->
             <% if(loggedin) {%>  
             <li class="nav-item">
                 <a class="nav-link <%= active === 'repositories' ? 'active':null %>" href="http://localhost:3112/repos/repositories?page=0&token=<%= token %>" aria-current="page">
+                <!-- <a class="nav-link <%= active === 'repositories' ? 'active':null %>" href="https://oddgit.fullstackengineers.co.in/repos/repositories?page=0&token=" aria-current="page">     -->
                     Repositories
                 </a>
             </li>
@@ -31,9 +34,11 @@
             <% if(!loggedin) {%> 
             <li class="nav-item">
                 <a class="nav-link <%= active === 'signup' ? 'active':null %>" aria-current="page" href="http://localhost:3112/auth/signup">Signup</a>
+                <!-- <a class="nav-link <%= active === 'signup' ? 'active':null %>" aria-current="page" href="https://oddgit.fullstackengineers.co.in/auth/signup">Signup</a> -->
             </li> 
             <li class="nav-item ms-2">
                 <a class="btn btn-outline-dark <%= active === 'login' ? 'active':null %>" aria-current="page" href="http://localhost:3112/auth/login">Login</a>
+                <!-- <a class="btn btn-outline-dark <%= active === 'login' ? 'active':null %>" aria-current="page" href="https://oddgit.fullstackengineers.co.in/auth/login">Login</a> -->
             </li>
             <% } %>
             <% if(loggedin) {%>
@@ -42,6 +47,7 @@
             </li> 
             <li class="nav-item ms-2">
                 <a class="btn btn-light <%= active === 'logout' ? 'active':null %>" aria-current="page" href="http://localhost:3112/auth/logout">
+                <!-- <a class="btn btn-light <%= active === 'logout' ? 'active':null %>" aria-current="page" href="https://oddgit.fullstackengineers.co.in/auth/logout"></a> -->
                     <i class="bi bi-box-arrow-right"></i>
                 </a>
             </li>

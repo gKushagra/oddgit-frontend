@@ -2,7 +2,7 @@ function logout() {
     localStorage.removeItem('token');
     setTimeout(() => {
         // change page without reflecting browser back history
-        window.location.replace('http://localhost:3112/home/');
+        window.location.replace(`${DOMAIN}/home/`);
     }, 2000);
 }
 
@@ -65,7 +65,7 @@ function loadAddNewRepositoryBtn() {
 
                 const token = document.getElementById('token').dataset.test;
 
-                let url = `http://localhost:3112/repos/repositories?token=${token}`
+                let url = `${DOMAIN}/repos/repositories?token=${token}`
 
                 POST(url, { name: repoName.value }, null)
                     .then((response) => {
@@ -93,7 +93,7 @@ function loadAddNewRepositoryBtn() {
                 closeModalBtn.addEventListener('click', () => {
                     addNewRepositoryModal.hide();
                     setTimeout(() => {
-                        window.location.href = `http://localhost:3112/repos/repositories?page=0&token=${token}`;
+                        window.location.href = `${DOMAIN}/repos/repositories?page=0&token=${token}`;
                     }, 1000);
                 });
             });

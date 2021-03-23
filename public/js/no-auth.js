@@ -1,7 +1,7 @@
 function checkToken() {
     var token = localStorage.getItem('token');
     if (token) {
-        window.location.href = `http://localhost:3112/auth/verify-token/${token}`
+        window.location.href = `${DOMAIN}/auth/verify-token/${token}`
     }
 }
 

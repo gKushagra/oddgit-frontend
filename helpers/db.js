@@ -1,9 +1,10 @@
+require('dotenv').config();
 const sqlite = require('sqlite3').verbose();
 const logger = require('../logger/logger');
 
 // common methods
 function connectDB() {
-    return new sqlite.Database('/Users/kush/Documents/Kush/NewProjects/oddgit-db/oddgit.db', sqlite.OPEN_READWRITE | sqlite.OPEN_CREATE, (err) => {
+    return new sqlite.Database(process.env.DB_PATH, sqlite.OPEN_READWRITE | sqlite.OPEN_CREATE, (err) => {
         if (err)
             logger.log({ level: 'error', message: `sqlite connect error ${err}` });
 

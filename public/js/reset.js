@@ -18,7 +18,7 @@ resetPassBtn.addEventListener('click', () => {
 });
 
 function resetPassword(pass) {
-    let url = `http://localhost:3112/auth/reset`;
+    let url = `${DOMAIN}/auth/reset`;
     POST(url, { pass: pass, token: token }, null)
         .then((data) => {
             successMsg.innerHTML = data.message;
@@ -26,7 +26,7 @@ function resetPassword(pass) {
             resetPassBtn.disabled = true;
 
             setTimeout(() => {
-                window.location.replace('http://localhost:3112/auth/login');
+                window.location.replace(`${DOMAIN}/auth/login`);
             }, 10000);
         })
         .catch((err) => {

@@ -10,7 +10,7 @@ requestLinkBtn.addEventListener('click', () => {
 });
 
 function requestLink(email) {
-    let resetUrl = `http://localhost:3112/auth/reset/${email}`;
+    let resetUrl = `${DOMAIN}/auth/reset/${email}`;
     GET(resetUrl, null)
         .then((data) => {
             alertMessage.innerHTML = data.message;
@@ -18,7 +18,7 @@ function requestLink(email) {
             requestLinkBtn.disabled = true;
 
             setTimeout(() => {
-                window.location.replace('http://localhost:3112/home/');
+                window.location.replace(`${DOMAIN}/home/`);
             }, 10000);
         })
         .catch((err) => {

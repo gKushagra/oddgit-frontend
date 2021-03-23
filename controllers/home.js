@@ -1,6 +1,7 @@
 const express = require('express');
 const requestIP = require('request-ip');
 const logger = require('../logger/logger');
+const DOMAIN = 'http://localhost:3112';
 
 const router = express.Router();
 
@@ -13,7 +14,7 @@ router.get('/', (req, res) => {
 router.post('/search', (req, res) => {
     const keyword = req.body.keyword;
     logger.log({ level: 'info', message: `search ${keyword}` })
-    res.redirect(`http://localhost:3112/repos/search?value=${keyword}&page=${0}`);
+    res.redirect(`${DOMAIN}/repos/search?value=${keyword}&page=${0}`);
 });
 
 module.exports = router;

@@ -6,10 +6,14 @@
                     <% if(public) {%>
                         <a class="page-link"
                             href="http://localhost:3112/repos/search?value=<%= keyword %>&page=<%= parseInt(page) - 1 %>">Previous</a>
+                        <!-- <a class="page-link"
+                            href="https://oddgit.fullstackengineers.co.in/repos/search?value=&page=">Previous</a> -->
                     <% } %>
                     <% if(!public) {%> 
                         <a class="page-link"
                             href="http://localhost:3112/repos/repositories?page=<%= parseInt(page) - 1 %>&token=<%= token %> ">Previous</a>
+                        <!-- <a class="page-link"
+                            href="https://oddgit.fullstackengineers.co.in/repos/repositories?page=&token=">Previous</a> -->
                     <% } %>
                 </li>
             <% } %>
@@ -19,10 +23,14 @@
                     <% if(public) {%>
                         <a class="page-link"
                             href="http://localhost:3112/repos/search?value=<%= keyword %>&page=<%= parseInt(page) + 1  %>">Next</a>
+                        <!-- <a class="page-link"
+                            href="https://oddgit.fullstackengineers.co.in/repos/search?value=&page=">Previous</a> -->
                     <% } %>
                     <% if(!public) {%> 
                         <a class="page-link"
                             href="http://localhost:3112/repos/repositories?page=<%= parseInt(page) + 1  %>&token=<%= token %> ">Next</a>
+                        <!-- <a class="page-link"
+                            href="https://oddgit.fullstackengineers.co.in/repos/search?value=&page=">Previous</a> -->
                     <% } %>
                 </li>
             <% } %>
